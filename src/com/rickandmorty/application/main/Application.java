@@ -26,5 +26,17 @@ public class Application {
                 .send(request, HttpResponse.BodyHandlers.ofString());
         String teste = response.body();
         System.out.println(teste);
+
+        String teste3;
+        teste3 = spell.nextLine();
+        connectionApi.setEpisodeId(teste3);
+        String responseData = ConnectionApi.apiCaller(connectionApi.getAddress());
+        System.out.println(responseData);
+
+        String teste4;
+        teste4 = spell.nextLine();
+        connectionApi.setEpisode(teste4);
+        responseData = ConnectionApi.apiCaller(connectionApi.getAddress());
+        System.out.println(responseData);
     }
 }
