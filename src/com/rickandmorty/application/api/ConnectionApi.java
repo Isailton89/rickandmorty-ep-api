@@ -9,15 +9,19 @@ import java.net.http.HttpResponse;
 public class ConnectionApi {
     private String episodeId;
     private String address;
-    private String season;
-    private String episode;
+    private int season;
+    private int episode;
 
-    public void setSeason(String season) {
-        this.season = season;
-        this.address = "https://rickandmortyapi.com/api/episode?episode=S0" + season +"E01";
+    public String setAddress(String address) {
+        this.address = address;
+        return address;
     }
 
-    public void setEpisode(String episode) {
+    public void setSeason(int season) {
+        this.season = season;
+    }
+
+    public void setEpisode(int episode) {
         this.episode = episode;
     }
 

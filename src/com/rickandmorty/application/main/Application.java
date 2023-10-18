@@ -13,30 +13,49 @@ public class Application {
     public static void main(String[] args) throws IOException, InterruptedException {
         ConnectionApi connectionApi = new ConnectionApi();
         Scanner spell = new Scanner(System.in);
+        int option = 0;
         String search = "";
-        search = spell.nextLine();
-        connectionApi.setEpisodeId(search);
-        System.out.println(connectionApi.getAddress());
+        System.out.println("Seja bem vindo ao buscador de episódios Rick e Morty");
+        String messageInitial = """
+                Por favor digite o numero da opção que corresponde o seu tipo de busca
+                \n1 - Buscar episódio e temporada.
+                \n2 - Buscar por nome do episódio.
+                \n3 - Listar espisódios por temporada.
+                """;
+        while (!search.equalsIgnoreCase("sair")){
+            System.out.println(messageInitial);
+            if (search.equalsIgnoreCase("sair")){
+                break;
+            }
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(connectionApi.getAddress()))
-                                .build();
-        HttpResponse<String> response = client
-                .send(request, HttpResponse.BodyHandlers.ofString());
-        String teste = response.body();
-        System.out.println(teste);
+            option = spell.nextInt();
 
-        String teste3;
-        teste3 = spell.nextLine();
-        connectionApi.setEpisodeId(teste3);
-        String responseData = ConnectionApi.apiCaller(connectionApi.getAddress());
-        System.out.println(responseData);
-
-        String teste4;
-        teste4 = spell.nextLine();
-        connectionApi.setEpisode(teste4);
-        responseData = ConnectionApi.apiCaller(connectionApi.getAddress());
-        System.out.println(responseData);
+            while (option > 0 || option < 4) {
+                if (option == 1) {
+                    System.out.println("Digite o número de um episódio:");
+                    int optionEp = spell.nextInt();
+                    connectionApi.setEpisode(optionEp);
+                    System.out.println("Digite o número de uma temporada");
+                    int optionSo = spell.nextInt();
+                    connectionApi.setSeason(optionSo);
+                    String responseEpSo;
+                    if (optionSo <= 9 && optionSo >= 1 && optionEp <= 9 && optionEp >=1) {
+                        responseEpSo = connectionApi.setAddress("https://rickandmortyapi.com/api/episode?episode=S0" + optionSo + "E0" + optionEp);
+                    } else {
+                        responseEpSo = connectionApi.setAddress("https://rickandmortyapi.com/api/episode?episode=S" + optionSo + "E" + optionEp);
+                    }
+                    System.out.println(responseEpSo);
+                    connectionApi.setAddress(responseEpSo);
+                    var responseEpSoComplet = ConnectionApi.apiCaller(connectionApi.getAddress());
+                    System.out.println(responseEpSoComplet);
+                    break;
+                }
+            }
+        }
     }
 }
+/*
+Buscar episodio e temporada
+Buscar por nome do episódio
+Buscar por temporada : requisição https://rickandmortyapi.com/api/episode?episode=S01
+ */
