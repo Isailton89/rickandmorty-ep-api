@@ -31,7 +31,6 @@ public class ConnectionApi {
 
     public void setEpisodeId(String episodeId) {
         this.episodeId = episodeId;
-        this.address = "https://rickandmortyapi.com/api/episode/" + episodeId;
     }
 
     public static String apiCaller(String apiAddress) throws IOException, InterruptedException {
