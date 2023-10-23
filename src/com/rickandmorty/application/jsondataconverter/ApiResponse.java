@@ -16,7 +16,7 @@ public class ApiResponse {
             for (EpisodeResult episodeResult : results) {
                 String episodeName = episodeResult.name();
                 String airDate = episodeResult.air_date();
-                stringBuilder.append("\nEpisódio: ").append(episodeName).append("\nData de Lançamento: ").append(airDate).append("\n____________________________________________________________________________________");
+                stringBuilder.append("\nEpisódio: ").append(episodeName).append("\nData de Lançamento: ").append(airDate).append("\n ");
             }
         }else {
             stringBuilder.append("Nenhum episódio encontrado!");

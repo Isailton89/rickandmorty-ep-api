@@ -33,13 +33,18 @@ public class ConnectionApi {
         this.episodeId = episodeId;
     }
 
-    public static String apiCaller(String apiAddress) throws IOException, InterruptedException {
+    public static String apiCaller(String apiAddress){
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiAddress))
                 .build();
-        HttpResponse<String> response = client
-                .send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = null;
+        try {
+            response = client
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return response.body();
     }
 }
